@@ -1,0 +1,10 @@
+#!/bin/bash
+bash simulazioni.sh
+bash plot-risultati.sh
+bash grafici.sh
+echo "Press 1+INVIO to delete the results"
+read a
+if [ "$a" -eq "1" ];
+then
+bash rimuovi.sh
+fi

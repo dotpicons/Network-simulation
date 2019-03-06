@@ -1,0 +1,33 @@
+PARTE A: NS-2
+
+
+Definire mediante uno script tcl una topologia di rete con sei nodi connessi come in figura.
+I parametri dei link punto-punto sono i seguenti:
+-	rate =2 Mbps (per tutti i link, ad eccezione del link n2-n3, per cui il rate sarà variabile);
+-	delay = 10 ms;
+-	coda = DropTail; dimensione della coda = 10 pacchetti;
+Il nodo 0 genera un flusso FTP verso il nodo 4 dall’istante 1 all’istante 50.
+Ripetere l’esperimento sia in assenza che in presenza di un flusso CBR dal nodo 1 verso il nodo 5 con le seguenti caratteristiche:
+-	packet size pari a 500 byte;
+-	rate variabile (come indicato successivamente);
+-	istante di partenza: 0.5s; Stop: 50s.
+
+A partire dai file di trace ottenuti, calcolare (ove possibile) le seguenti metriche:
+-	il throughput in ricezione  cumulativo in rete in kbps;
+-	il throughput in ricezione in kpbs per ciascun flusso sorgente-destinazione attivo;
+-	la percentuale di pacchetti persi per ciascun flusso;
+-	il delay dei pacchetti dati (ftp/cbr) da sorgente a destinazione (end-to-end) per ciascun flusso;
+-	l’overhead di segnalazione legata ai pacchetti di ACK come:
+?	numero di byte di ACK trasmessi/numero di byte TCP ricevuti ;
+mediante degli script awk e graficarne l’andamento (si suggerisce gnuplot).
+Ripetere l’esperimento al variare del rate del link n2-n3 (500 kbps, 10 Mbps) e del rate di generazione del flusso CBR: 128 kbps, 256 kps, 1 Mbps, 2 Mbps, 10 Mbps.
+
+Eseguire 10 run per ogni singola configurazione e mediare i risultati ottenuti. Variare per ogni run il parametro seed e settare per il flusso CBR $cbr set random_ 1, verificando l’impatto che questo ha sul file di trace e sui risultati.
+Utilizzare uno script bash per automatizzare le procedure di lancio di NS-2 e per la chiamata degli script awk. Commentare i risultati in maniera critica, confrontando le prestazioni ottenute nei diversi scenari, individuando i parametri che le influenzano.
+Prevedere nello script bash anche la chiamata al comando top per valutare il consumo di CPU/RAM associato alla campagna di simulazione avviata dal processo ns2. In particolare, si derivi il consumo  istantaneo (ogni 1sec) e medio (durante la durata dei run associati alla simulazione con rate CBR 128 kbps e quello associati alla simulazione con rate pari a 10 Mbps).
+
+PARTE B: MININET
+Replicare per quanto possibile (magari tramite il tool MiniEdit inizialmente, con i nodi 0, 1, 4 e 5 host e 2 e 3 switch) la topologia analizzata nell’emulatore di rete MININET (con gli stessi setting dei parametri dei link) e utilizzare i tool necessari per generare pattern di traffico simili (concentrarsi sul caso FTP).
+Calcolare le prestazioni associate (per le metriche restituite dai tool) e graficarne gli andamenti.
+Nella realizzazione degli script Python per la topologia valutare la possibilità di parametrizzare i parametri variabili (es. rate del link) e di avviare il tool IPERF dentro lo script.
+Confrontare eventualmente i risultati ottenuti per via simulativa e tramite emulatore di rete.
